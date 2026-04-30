@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/subjects")
+@RequestMapping("/subjects")
 @RequiredArgsConstructor
 @Tag(name = "Sujets", description = "Gestion des thématiques disponibles")
 public class SubjectController {

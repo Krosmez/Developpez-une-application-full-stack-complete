@@ -22,51 +22,50 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 @Tag(name = "Utilisateurs", description = "Gestion des profils utilisateurs")
 public class UserController {
 
-    private final UserService userService;
-    private final PostService postService;
+  private final UserService userService;
+  private final PostService postService;
 
-    @Operation(summary = "Récupérer le profil d'un utilisateur")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Profil trouvé",
-            content = @Content(schema = @Schema(implementation = UserProfileResponse.class))),
-        @ApiResponse(responseCode = "404", description = "Utilisateur introuvable",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @GetMapping("/{id}")
-    public ResponseEntity<UserProfileResponse> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
-    }
+  @Operation(summary = "Récupérer le profil de l'utilisateur connecté")
+  @ApiResponse(responseCode = "200", description = "Profil de l'utilisateur connecté", content = @Content(schema = @Schema(implementation =
+      UserProfileResponse.class)))
+  @GetMapping("/me")
+  public ResponseEntity<UserProfileResponse> getCurrentUser(@AuthenticationPrincipal User currentUser) {
+    return ResponseEntity.ok(userService.getUserById(currentUser.getId()));
+  }
 
-    @Operation(summary = "Mettre à jour le profil de l'utilisateur connecté")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Profil mis à jour",
-            content = @Content(schema = @Schema(implementation = UserResponse.class))),
-        @ApiResponse(responseCode = "403", description = "Modification d'un autre profil interdite",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(responseCode = "404", description = "Utilisateur introuvable",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(
-            @PathVariable Long id,
-            @RequestBody UpdateUserRequest request,
-            @AuthenticationPrincipal User currentUser) {
-        return ResponseEntity.ok(userService.updateUser(id, request, currentUser));
-    }
+  @Operation(summary = "Récupérer le profil d'un utilisateur par son id")
+  @ApiResponses({@ApiResponse(responseCode = "200", description = "Profil trouvé", content = @Content(schema = @Schema(implementation =
+      UserProfileResponse.class))), @ApiResponse(responseCode = "404", description = "Utilisateur introuvable", content = @Content(schema =
+  @Schema(implementation = ErrorResponse.class)))})
+  @GetMapping("/{id}")
+  public ResponseEntity<UserProfileResponse> getUser(@PathVariable Long id) {
+    return ResponseEntity.ok(userService.getUserById(id));
+  }
 
-    @Operation(summary = "Lister les articles publiés par un utilisateur")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Liste des articles"),
-        @ApiResponse(responseCode = "404", description = "Utilisateur introuvable",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @GetMapping("/{id}/posts")
-    public ResponseEntity<List<PostResponse>> getUserPosts(@PathVariable Long id) {
-        return ResponseEntity.ok(postService.getPostsByUserId(id));
-    }
+  @Operation(summary = "Mettre à jour le profil de l'utilisateur connecté")
+  @ApiResponses({@ApiResponse(responseCode = "200", description = "Profil mis à jour", content = @Content(schema = @Schema(implementation =
+      UserResponse.class))), @ApiResponse(responseCode = "403", description = "Modification d'un autre profil interdite", content =
+  @Content(schema = @Schema(implementation = ErrorResponse.class))), @ApiResponse(responseCode = "404", description = "Utilisateur introuvable",
+      content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
+  @PutMapping("/{id}")
+  public ResponseEntity<UserResponse> updateUser(
+      @PathVariable Long id,
+      @RequestBody UpdateUserRequest request,
+      @AuthenticationPrincipal User currentUser
+  ) {
+    return ResponseEntity.ok(userService.updateUser(id, request, currentUser));
+  }
+
+  @Operation(summary = "Lister les articles publiés par un utilisateur")
+  @ApiResponses({@ApiResponse(responseCode = "200", description = "Liste des articles"), @ApiResponse(responseCode = "404", description =
+      "Utilisateur introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
+  @GetMapping("/{id}/posts")
+  public ResponseEntity<List<PostResponse>> getUserPosts(@PathVariable Long id) {
+    return ResponseEntity.ok(postService.getPostsByUserId(id));
+  }
 }

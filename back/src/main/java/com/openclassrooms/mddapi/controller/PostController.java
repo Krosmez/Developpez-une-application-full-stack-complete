@@ -26,6 +26,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/posts")
 @RequiredArgsConstructor
 @Tag(name = "Articles", description = "Création et consultation des articles")
 public class PostController {
@@ -39,7 +40,7 @@ public class PostController {
         @ApiResponse(responseCode = "404", description = "Sujet introuvable",
             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @PostMapping("/api/v1/posts")
+    @PostMapping
     public ResponseEntity<PostResponse> createPost(
             @Valid @RequestBody CreatePostRequest request,
             @AuthenticationPrincipal User currentUser) {
@@ -53,7 +54,7 @@ public class PostController {
         @ApiResponse(responseCode = "404", description = "Article introuvable",
             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @GetMapping("/api/v1/posts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PostDetailResponse> getPost(@PathVariable Long id) {
         return ResponseEntity.ok(postService.getPostById(id));
     }
@@ -65,7 +66,7 @@ public class PostController {
         @ApiResponse(responseCode = "404", description = "Article introuvable",
             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @PostMapping("/api/v1/posts/{id}/comments")
+    @PostMapping("/{id}/comments")
     public ResponseEntity<CommentResponse> addComment(
             @PathVariable Long id,
             @Valid @RequestBody CreateCommentRequest request,
@@ -73,11 +74,4 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.addComment(id, request, currentUser));
     }
 
-    @Operation(summary = "Récupérer le fil d'actualité de l'utilisateur connecté")
-    @GetMapping("/api/v1/feed")
-    public ResponseEntity<Page<FeedItemResponse>> getFeed(
-            @AuthenticationPrincipal User currentUser,
-            @PageableDefault(size = 10) Pageable pageable) {
-        return ResponseEntity.ok(postService.getFeed(currentUser.getId(), pageable));
-    }
 }
