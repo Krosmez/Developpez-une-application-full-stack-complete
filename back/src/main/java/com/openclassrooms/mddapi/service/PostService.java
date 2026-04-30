@@ -15,6 +15,7 @@ import com.openclassrooms.mddapi.mapper.PostMapper;
 import com.openclassrooms.mddapi.repository.CommentRepository;
 import com.openclassrooms.mddapi.repository.PostRepository;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
+import com.openclassrooms.mddapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +32,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final SubjectRepository subjectRepository;
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
     private final PostMapper postMapper;
 
     @Transactional
@@ -68,8 +70,10 @@ public class PostService {
         return postMapper.toCommentDto(commentRepository.save(comment));
     }
 
-    public Page<FeedItemResponse> getFeed(User currentUser, Pageable pageable) {
-        List<Subject> subscriptions = currentUser.getSubscriptions();
+    public Page<FeedItemResponse> getFeed(Long userId, Pageable pageable) {
+        User user = userRepository.findByIdWithSubscriptions(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", userId));
+        List<Subject> subscriptions = user.getSubscriptions();
         if (subscriptions.isEmpty()) {
             return Page.empty(pageable);
         }

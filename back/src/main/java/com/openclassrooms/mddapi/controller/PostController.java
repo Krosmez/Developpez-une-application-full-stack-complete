@@ -78,6 +78,6 @@ public class PostController {
     public ResponseEntity<Page<FeedItemResponse>> getFeed(
             @AuthenticationPrincipal User currentUser,
             @PageableDefault(size = 10) Pageable pageable) {
-        return ResponseEntity.ok(postService.getFeed(currentUser, pageable));
+        return ResponseEntity.ok(postService.getFeed(currentUser.getId(), pageable));
     }
 }
