@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -35,6 +36,15 @@ public class User implements UserDetails {
     private String lastName;
 
     private String bio;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "subscriptions",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "subject_id")
+    )
+    @Builder.Default
+    private List<Subject> subscriptions = new ArrayList<>();
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
