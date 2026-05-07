@@ -17,8 +17,6 @@ import com.openclassrooms.mddapi.repository.PostRepository;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,15 +68,17 @@ public class PostService {
         return postMapper.toCommentDto(commentRepository.save(comment));
     }
 
-    public Page<FeedItemResponse> getFeed(Long userId, Pageable pageable) {
+    public List<FeedItemResponse> getFeed(Long userId) {
         User user = userRepository.findByIdWithSubscriptions(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
         List<Subject> subscriptions = user.getSubscriptions();
         if (subscriptions.isEmpty()) {
-            return Page.empty(pageable);
+            return List.of();
         }
         return postRepository
-                .findBySubjectInOrderByCreatedAtDesc(subscriptions, pageable)
-                .map(postMapper::toFeedItem);
+                .findBySubjectInOrderByCreatedAtDesc(subscriptions)
+                .stream()
+                .map(postMapper::toFeedItem)
+                .collect(java.util.stream.Collectors.toList());
     }
 }
