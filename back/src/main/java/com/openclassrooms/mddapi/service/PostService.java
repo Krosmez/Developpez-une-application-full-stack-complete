@@ -17,6 +17,7 @@ import com.openclassrooms.mddapi.repository.PostRepository;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,15 +69,16 @@ public class PostService {
         return postMapper.toCommentDto(commentRepository.save(comment));
     }
 
-    public List<FeedItemResponse> getFeed(Long userId) {
+    public List<FeedItemResponse> getFeed(Long userId, Sort.Direction direction) {
         User user = userRepository.findByIdWithSubscriptions(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
         List<Subject> subscriptions = user.getSubscriptions();
         if (subscriptions.isEmpty()) {
             return List.of();
         }
+        Sort sort = Sort.by(direction, "createdAt");
         return postRepository
-                .findBySubjectInOrderByCreatedAtDesc(subscriptions)
+                .findBySubjectIn(subscriptions, sort)
                 .stream()
                 .map(postMapper::toFeedItem)
                 .collect(java.util.stream.Collectors.toList());
