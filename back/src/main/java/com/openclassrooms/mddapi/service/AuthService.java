@@ -7,6 +7,7 @@ import com.openclassrooms.mddapi.dto.response.UserResponse;
 import com.openclassrooms.mddapi.entity.User;
 import com.openclassrooms.mddapi.exception.EmailAlreadyExistsException;
 import com.openclassrooms.mddapi.exception.InvalidCredentialsException;
+import com.openclassrooms.mddapi.exception.UsernameAlreadyExistsException;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,12 @@ public class AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistsException(request.getEmail());
         }
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new UsernameAlreadyExistsException(request.getUsername());
+        }
         User user = User.builder()
                 .email(request.getEmail())
+                .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -42,12 +47,12 @@ public class AuthService {
     public AuthResponse login(LoginRequest request) {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+                    new UsernamePasswordAuthenticationToken(request.getIdentifier(), request.getPassword())
             );
         } catch (BadCredentialsException e) {
             throw new InvalidCredentialsException();
         }
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByEmailOrUsername(request.getIdentifier())
                 .orElseThrow(InvalidCredentialsException::new);
         String token = jwtService.generateToken(user);
         return new AuthResponse(token);

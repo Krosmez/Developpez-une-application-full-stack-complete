@@ -1,7 +1,6 @@
 package com.openclassrooms.mddapi.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -10,9 +9,8 @@ import lombok.Data;
 public class LoginRequest {
 
     @NotBlank
-    @Email
-    @Schema(description = "Adresse email", example = "jean.dupont@example.com")
-    private String email;
+    @Schema(description = "Adresse email ou nom d'utilisateur", example = "jean.dupont@example.com")
+    private String identifier;
 
     @NotBlank
     @Schema(description = "Mot de passe", example = "secure123")

@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.controller;
 import com.openclassrooms.mddapi.dto.request.UpdateUserRequest;
 import com.openclassrooms.mddapi.dto.response.PostResponse;
 import com.openclassrooms.mddapi.dto.response.UserProfileResponse;
-import com.openclassrooms.mddapi.dto.response.UserResponse;
+import jakarta.validation.Valid;
 import com.openclassrooms.mddapi.entity.User;
 import com.openclassrooms.mddapi.exception.GlobalExceptionHandler.ErrorResponse;
 import com.openclassrooms.mddapi.service.PostService;
@@ -49,13 +49,14 @@ public class UserController {
 
   @Operation(summary = "Mettre à jour le profil de l'utilisateur connecté")
   @ApiResponses({@ApiResponse(responseCode = "200", description = "Profil mis à jour", content = @Content(schema = @Schema(implementation =
-      UserResponse.class))), @ApiResponse(responseCode = "403", description = "Modification d'un autre profil interdite", content =
+      UserProfileResponse.class))), @ApiResponse(responseCode = "403", description = "Modification d'un autre profil interdite", content =
   @Content(schema = @Schema(implementation = ErrorResponse.class))), @ApiResponse(responseCode = "404", description = "Utilisateur introuvable",
-      content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
+      content = @Content(schema = @Schema(implementation = ErrorResponse.class))), @ApiResponse(responseCode = "409", description =
+      "Email ou nom d'utilisateur déjà utilisé", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
   @PutMapping("/{id}")
-  public ResponseEntity<UserResponse> updateUser(
+  public ResponseEntity<UserProfileResponse> updateUser(
       @PathVariable Long id,
-      @RequestBody UpdateUserRequest request,
+      @Valid @RequestBody UpdateUserRequest request,
       @AuthenticationPrincipal User currentUser
   ) {
     return ResponseEntity.ok(userService.updateUser(id, request, currentUser));

@@ -17,6 +17,9 @@ public class UserProfileResponse {
     @Schema(example = "jean.dupont@example.com")
     private String email;
 
+    @Schema(example = "jean_dupont")
+    private String username;
+
     @Schema(example = "Jean")
     private String firstName;
 
