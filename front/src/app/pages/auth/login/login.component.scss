@@ -1,8 +1,13 @@
+:host {
+  flex: 1;
+  display: flex;
+}
+
 .auth-page {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   padding: 1rem;
 }
 

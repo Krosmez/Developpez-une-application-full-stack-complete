@@ -1,0 +1,57 @@
+.navbar {
+  background: white;
+  color: rgba(0, 0, 0, 0.87);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  height: 40px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.logout-btn {
+  color: #d32f2f;
+}
+
+.profile-btn {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.active-link {
+  font-weight: 600;
+}
+
+.mobile-menu-btn {
+  display: none;
+}
+
+.logout-icon {
+  color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+}
