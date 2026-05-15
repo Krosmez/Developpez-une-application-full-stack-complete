@@ -1,0 +1,55 @@
+:host {
+  flex: 1;
+  display: flex;
+}
+
+.topics-page {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+
+  h1 {
+    margin: 0 0 1.5rem;
+    font-size: 1.75rem;
+  }
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.error-message {
+  color: #b00020;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+
+  mat-card-content {
+    flex: 1;
+
+    p {
+      margin: 0.5rem 0 0;
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+  }
+
+  mat-card-actions {
+    padding: 0.5rem 1rem 1rem;
+  }
+}
