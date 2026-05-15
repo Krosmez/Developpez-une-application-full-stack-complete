@@ -14,6 +14,6 @@ public class AuthorDto {
     @Schema(example = "1")
     private Long id;
 
-    @Schema(example = "Jean")
-    private String firstName;
+    @Schema(example = "jean_dupont")
+    private String username;
 }

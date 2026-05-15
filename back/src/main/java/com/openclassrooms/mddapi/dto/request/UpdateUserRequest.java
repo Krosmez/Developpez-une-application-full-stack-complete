@@ -23,12 +23,6 @@ public class UpdateUserRequest {
     @Schema(description = "Nouveau mot de passe", example = "Secure1!")
     private String password;
 
-    @Schema(description = "Prénom", example = "Jean")
-    private String firstName;
-
-    @Schema(description = "Nom de famille", example = "Dupont")
-    private String lastName;
-
     @Schema(description = "Biographie", example = "Développeur Full-Stack")
     private String bio;
 }

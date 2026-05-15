@@ -20,12 +20,6 @@ public class UserProfileResponse {
     @Schema(example = "jean_dupont")
     private String username;
 
-    @Schema(example = "Jean")
-    private String firstName;
-
-    @Schema(example = "Dupont")
-    private String lastName;
-
     @Schema(example = "Développeur Java")
     private String bio;
 }

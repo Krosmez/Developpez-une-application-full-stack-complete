@@ -27,11 +27,4 @@ public class RegisterRequest {
     @Schema(description = "Mot de passe (8 car. min, 1 chiffre, 1 minuscule, 1 majuscule, 1 caractère spécial)", example = "Secure1!")
     private String password;
 
-    @NotBlank
-    @Schema(description = "Prénom", example = "Jean")
-    private String firstName;
-
-    @NotBlank
-    @Schema(description = "Nom de famille", example = "Dupont")
-    private String lastName;
 }
