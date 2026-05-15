@@ -12,12 +12,16 @@ export interface PostDetail {
   title: string;
   content: string;
   author: Author;
+  subject: Subject;
+  createdAt: string;
   comments: Comment[];
 }
 
 export interface PostSummary {
   id: number;
   title: string;
+  author: Author;
+  createdAt: string;
 }
 
 export interface FeedItem {

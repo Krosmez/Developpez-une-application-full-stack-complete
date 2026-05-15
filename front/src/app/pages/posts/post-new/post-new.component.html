@@ -1,0 +1,58 @@
+<div class="new-post-page">
+
+  <button mat-icon-button class="back-btn" (click)="goBack()" aria-label="Retour">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <h1>Créer un article</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="post-form">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Thème</mat-label>
+      <mat-select formControlName="subjectId">
+        @for (subject of subjects; track subject.id) {
+          <mat-option [value]="subject.id">{{ subject.name }}</mat-option>
+        }
+      </mat-select>
+      @if (form.get('subjectId')?.hasError('required') && form.get('subjectId')?.touched) {
+        <mat-error>Veuillez choisir un thème</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titre</mat-label>
+      <input matInput formControlName="title" />
+      @if (form.get('title')?.hasError('required') && form.get('title')?.touched) {
+        <mat-error>Le titre est requis</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contenu</mat-label>
+      <textarea matInput formControlName="content" rows="10" cdkTextareaAutosize></textarea>
+      @if (form.get('content')?.hasError('required') && form.get('content')?.touched) {
+        <mat-error>Le contenu est requis</mat-error>
+      }
+    </mat-form-field>
+
+    @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+    }
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid || isLoading"
+      class="submit-btn"
+    >
+      @if (isLoading) {
+        <mat-spinner diameter="20"></mat-spinner>
+      } @else {
+        Publier
+      }
+    </button>
+
+  </form>
+</div>

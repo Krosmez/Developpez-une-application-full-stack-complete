@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +11,6 @@ import { AuthService } from '../../../core/services/auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     RouterLink,
     MatFormFieldModule,
