@@ -5,19 +5,26 @@
 
 .new-post-page {
   flex: 1;
-  padding: 1rem 1rem 3rem;
-  max-width: 800px;
+  padding: 1.5rem 1.5rem 3rem;
+  max-width: 600px;
   width: 100%;
   margin: 0 auto;
-
-  h1 {
-    margin: 0 0 1.5rem;
-    font-size: 1.75rem;
-  }
 }
 
-.back-btn {
-  margin-bottom: 0.5rem;
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding-right: 2.5rem;
+  }
 }
 
 .post-form {
@@ -36,11 +43,12 @@
   }
 
   .submit-btn {
-    align-self: flex-end;
+    align-self: center;
     height: 44px;
+    min-width: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 120px;
+    margin-top: 0.5rem;
   }
 }

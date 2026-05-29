@@ -1,43 +1,30 @@
 <div class="auth-page">
+  <button mat-icon-button class="back-btn" routerLink="/" aria-label="Retour">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
   <div class="auth-container">
-    <img src="/assets/logo_p6.png" alt="MDD Logo" class="logo" />
+    <img src="/assets/logo_p6.png" alt="MDD" class="mobile-logo" />
     <h2>Se connecter</h2>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Email ou nom d'utilisateur</mat-label>
+        <mat-label>E-mail ou nom d'utilisateur</mat-label>
         <input matInput formControlName="identifier" autocomplete="username" />
-        @if (
-          form.get("identifier")?.hasError("required") &&
-          form.get("identifier")?.touched
-        ) {
+        @if (form.get("identifier")?.hasError("required") && form.get("identifier")?.touched) {
           <mat-error>Ce champ est requis</mat-error>
         }
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Mot de passe</mat-label>
-        <input
-          matInput
-          type="password"
-          formControlName="password"
-          autocomplete="current-password"
-        />
-        @if (
-          form.get("password")?.hasError("required") &&
-          form.get("password")?.touched
-        ) {
+        <input matInput type="password" formControlName="password" autocomplete="current-password" />
+        @if (form.get("password")?.hasError("required") && form.get("password")?.touched) {
           <mat-error>Ce champ est requis</mat-error>
         }
       </mat-form-field>
       @if (errorMessage) {
         <p class="error-message">{{ errorMessage }}</p>
       }
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="form.invalid || isLoading"
-        class="full-width submit-btn"
-      >
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || isLoading" class="submit-btn">
         @if (isLoading) {
           <mat-spinner diameter="20"></mat-spinner>
         } @else {
@@ -45,8 +32,5 @@
         }
       </button>
     </form>
-    <p class="auth-link">
-      Pas encore de compte ? <a routerLink="/register">S'inscrire</a>
-    </p>
   </div>
 </div>

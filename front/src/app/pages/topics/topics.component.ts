@@ -3,20 +3,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { forkJoin } from 'rxjs';
+
+import { Subject } from '../../core/models';
 import { SubjectService } from '../../core/services/subject.service';
 import { SubscriptionService } from '../../core/services/subscription.service';
-import { Subject } from '../../core/models';
 
 @Component({
   selector: 'app-topics',
   standalone: true,
-  imports: [
-    MatButtonModule,
-    MatCardModule,
-    MatProgressSpinnerModule
-  ],
+  imports: [MatButtonModule, MatCardModule, MatProgressSpinnerModule],
   templateUrl: './topics.component.html',
-  styleUrls: ['./topics.component.scss']
+  styleUrls: ['./topics.component.scss'],
 })
 export class TopicsComponent implements OnInit {
   private subjectService = inject(SubjectService);
@@ -31,29 +28,30 @@ export class TopicsComponent implements OnInit {
   ngOnInit(): void {
     forkJoin({
       subjects: this.subjectService.getAllSubjects(),
-      subscriptions: this.subscriptionService.getSubscriptions()
+      subscriptions: this.subscriptionService.getSubscriptions(),
     }).subscribe({
       next: ({ subjects, subscriptions }) => {
         this.subjects = subjects;
-        this.subscribedIds = new Set(subscriptions.map(s => s.id));
+        this.subscribedIds = new Set(subscriptions.map((s) => s.id));
         this.isLoading = false;
       },
       error: () => {
         this.errorMessage = 'Impossible de charger les thèmes.';
         this.isLoading = false;
-      }
+      },
     });
   }
 
   subscribe(subject: Subject): void {
-    if (this.subscribedIds.has(subject.id) || this.pendingIds.has(subject.id)) return;
+    if (this.subscribedIds.has(subject.id) || this.pendingIds.has(subject.id))
+      return;
     this.pendingIds.add(subject.id);
     this.subscriptionService.subscribe(subject.id).subscribe({
-      next: subscriptions => {
-        this.subscribedIds = new Set(subscriptions.map(s => s.id));
+      next: (subscriptions) => {
+        this.subscribedIds = new Set(subscriptions.map((s) => s.id));
         this.pendingIds.delete(subject.id);
       },
-      error: () => this.pendingIds.delete(subject.id)
+      error: () => this.pendingIds.delete(subject.id),
     });
   }
 }

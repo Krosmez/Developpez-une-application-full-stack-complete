@@ -24,6 +24,8 @@ public interface PostMapper {
     List<PostResponse> toDtoList(List<Post> posts);
 
     @Mapping(target = "author", source = "author")
+    @Mapping(target = "subject", source = "subject")
+    @Mapping(target = "createdAt", source = "createdAt")
     @Mapping(target = "comments", source = "comments")
     PostDetailResponse toDetailDto(Post post);
 
@@ -32,6 +34,9 @@ public interface PostMapper {
 
     @Mapping(target = "post.id", source = "id")
     @Mapping(target = "post.title", source = "title")
+    @Mapping(target = "post.content", source = "content")
+    @Mapping(target = "post.author", source = "author")
+    @Mapping(target = "post.createdAt", source = "createdAt")
     @Mapping(target = "subject", source = "subject")
     FeedItemResponse toFeedItem(Post post);
 

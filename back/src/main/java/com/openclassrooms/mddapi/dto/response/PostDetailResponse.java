@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -23,6 +24,10 @@ public class PostDetailResponse {
     private String content;
 
     private AuthorDto author;
+
+    private SubjectResponse subject;
+
+    private LocalDateTime createdAt;
 
     private List<CommentResponse> comments;
 }

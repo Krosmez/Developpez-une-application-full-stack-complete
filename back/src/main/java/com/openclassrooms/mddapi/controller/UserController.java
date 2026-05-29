@@ -38,7 +38,7 @@ public class UserController {
       UserProfileResponse.class)))
   @GetMapping("/me")
   public ResponseEntity<UserProfileResponse> getCurrentUser(@AuthenticationPrincipal User currentUser) {
-    return ResponseEntity.ok(userService.getUserById(currentUser.getId()));
+    return ResponseEntity.ok(userService.getUserByUsername(currentUser.getUsername()));
   }
 
   @Operation(summary = "Lister les abonnements de l'utilisateur connecté")

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,11 @@ public class PostSummary {
 
     @Schema(example = "Introduction à Spring Boot")
     private String title;
+
+    @Schema(example = "Lorem ipsum...")
+    private String content;
+
+    private AuthorDto author;
+
+    private LocalDateTime createdAt;
 }

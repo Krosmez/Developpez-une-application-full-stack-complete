@@ -1,27 +1,28 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { TOKEN_KEY } from '../interceptors/jwt.interceptor';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
 import { AuthResponse, LoginRequest, RegisterRequest } from '../models';
+import { TOKEN_KEY } from '../interceptors/jwt.interceptor';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private loggedIn$ = new BehaviorSubject<boolean>(!!localStorage.getItem(TOKEN_KEY));
+  private loggedIn$ = new BehaviorSubject<boolean>(this.hasValidToken());
   readonly isLoggedIn$ = this.loggedIn$.asObservable();
 
   constructor(private http: HttpClient) {}
 
   login(request: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/login`, request).pipe(
-      tap(res => this.storeToken(res.token))
-    );
+    return this.http
+      .post<AuthResponse>(`${environment.apiUrl}/auth/login`, request)
+      .pipe(tap((res) => this.storeToken(res.token)));
   }
 
   register(request: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/register`, request).pipe(
-      tap(res => this.storeToken(res.token))
-    );
+    return this.http
+      .post<AuthResponse>(`${environment.apiUrl}/auth/register`, request)
+      .pipe(tap((res) => this.storeToken(res.token)));
   }
 
   logout(): void {
@@ -30,7 +31,18 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(TOKEN_KEY);
+    return this.hasValidToken();
+  }
+
+  private hasValidToken(): boolean {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) return false;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp * 1000 > Date.now();
+    } catch {
+      return false;
+    }
   }
 
   private storeToken(token: string): void {

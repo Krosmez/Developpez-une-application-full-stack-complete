@@ -1,6 +1,4 @@
 <div class="topics-page">
-  <h1>Thèmes</h1>
-
   @if (isLoading) {
     <div class="spinner-wrapper">
       <mat-spinner diameter="48"></mat-spinner>
@@ -11,20 +9,20 @@
     <div class="topics-grid">
       @for (subject of subjects; track subject.id) {
         <mat-card class="topic-card">
-          <mat-card-header>
-            <mat-card-title>{{ subject.name }}</mat-card-title>
-          </mat-card-header>
           <mat-card-content>
-            <p>{{ subject.description }}</p>
+            <h2 class="topic-name">{{ subject.name }}</h2>
+            <p class="topic-desc">{{ subject.description }}</p>
           </mat-card-content>
           <mat-card-actions>
             <button
               mat-flat-button
               color="primary"
-              [disabled]="subscribedIds.has(subject.id) || pendingIds.has(subject.id)"
+              [disabled]="
+                subscribedIds.has(subject.id) || pendingIds.has(subject.id)
+              "
               (click)="subscribe(subject)"
             >
-              {{ subscribedIds.has(subject.id) ? 'Déjà abonné' : 'S\'abonner' }}
+              {{ subscribedIds.has(subject.id) ? "Déjà abonné" : "S'abonner" }}
             </button>
           </mat-card-actions>
         </mat-card>

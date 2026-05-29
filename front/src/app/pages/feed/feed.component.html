@@ -1,15 +1,11 @@
 <div class="feed-page">
   <div class="feed-header">
-    <h1>Articles</h1>
-    <div class="header-actions">
-      <button mat-icon-button (click)="toggleSort()" [title]="sort === 'desc' ? 'Trier du plus ancien au plus récent' : 'Trier du plus récent au plus ancien'">
-        <mat-icon>{{ sort === 'desc' ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
-      </button>
-      <a mat-flat-button color="primary" routerLink="/posts/new">
-        <mat-icon>add</mat-icon>
-        Créer un article
-      </a>
-    </div>
+    <a mat-flat-button color="primary" routerLink="/posts/new">
+      Créer un article
+    </a>
+    <button class="sort-btn" (click)="toggleSort()" [title]="sort === 'desc' ? 'Trier du plus ancien au plus récent' : 'Trier du plus récent au plus ancien'">
+      Trier par <mat-icon inline>{{ sort === 'desc' ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+    </button>
   </div>
 
   @if (isLoading) {
@@ -24,17 +20,15 @@
       <p>Abonnez-vous à des <a routerLink="/topics">thèmes</a> pour voir des articles ici.</p>
     </div>
   } @else {
-    <div class="feed-list">
+    <div class="feed-grid">
       @for (item of items; track item.post.id) {
         <a class="feed-card" [routerLink]="['/posts', item.post.id]">
-          <div class="card-header">
-            <mat-chip-set>
-              <mat-chip>{{ item.subject.name }}</mat-chip>
-            </mat-chip-set>
-            <span class="card-date">{{ item.post.createdAt | date:'dd/MM/yyyy' }}</span>
-          </div>
           <h2 class="card-title">{{ item.post.title }}</h2>
-          <span class="card-author">{{ item.post.author.username }}</span>
+          <p class="card-meta">
+            <span>{{ item.post.createdAt | date:'dd/MM/yyyy' }}</span>
+            <span>{{ item.post.author.username }}</span>
+          </p>
+          <p class="card-content">{{ item.post.content }}</p>
         </a>
       }
     </div>

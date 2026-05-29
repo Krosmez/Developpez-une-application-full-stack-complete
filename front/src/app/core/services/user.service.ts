@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { UpdateUserRequest, UserProfile } from '../models';
 import { environment } from '../../../environments/environment';
-import { UserProfile, UpdateUserRequest } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -13,6 +14,9 @@ export class UserService {
   }
 
   updateProfile(id: number, data: UpdateUserRequest): Observable<UserProfile> {
-    return this.http.put<UserProfile>(`${environment.apiUrl}/users/${id}`, data);
+    return this.http.put<UserProfile>(
+      `${environment.apiUrl}/users/${id}`,
+      data,
+    );
   }
 }

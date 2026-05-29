@@ -5,24 +5,13 @@
 
 .profile-page {
   flex: 1;
-  padding: 2rem 1rem 3rem;
-  max-width: 600px;
+  padding: 2rem 1.5rem 3rem;
+  max-width: 800px;
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
-  h1 {
-    margin: 0;
-    font-size: 1.75rem;
-  }
-
-  h2 {
-    margin: 0 0 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
 }
 
 .spinner-wrapper {
@@ -43,13 +32,22 @@
   margin: 0.25rem 0;
 }
 
-.profile-section,
-.subscriptions-section {
+.profile-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  h1 {
+    margin: 0 0 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
 }
 
 .profile-form {
+  width: 100%;
+  max-width: 440px;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -59,52 +57,67 @@
   }
 
   .submit-btn {
-    align-self: flex-end;
+    align-self: center;
     height: 44px;
+    min-width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 140px;
     margin-top: 0.5rem;
+  }
+}
+
+.subscriptions-section {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin: 0 0 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+}
+
+.subscriptions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.subscription-card {
+  display: flex;
+  flex-direction: column;
+
+  mat-card-content {
+    flex: 1;
+    padding: 1rem 1rem 0.5rem !important;
+
+    .sub-name {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .sub-desc {
+      margin: 0;
+      font-size: 0.9rem;
+      color: rgba(0, 0, 0, 0.6);
+      line-height: 1.5;
+    }
+  }
+
+  mat-card-actions {
+    padding: 0.5rem 1rem 1rem;
+    justify-content: center;
   }
 }
 
 .no-subscriptions {
   color: rgba(0, 0, 0, 0.5);
   font-style: italic;
-}
-
-.subscriptions-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.subscription-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 6px;
-  background: #fafafa;
-
-  .subscription-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .subscription-name {
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-
-  .subscription-desc {
-    font-size: 0.8rem;
-    color: rgba(0, 0, 0, 0.54);
-  }
 }

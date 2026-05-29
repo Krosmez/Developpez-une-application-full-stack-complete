@@ -1,15 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, OnInit, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
+
 import { PostService } from '../../../core/services/post.service';
-import { SubjectService } from '../../../core/services/subject.service';
+import { SubscriptionService } from '../../../core/services/subscription.service';
 import { Subject } from '../../../core/models';
 
 @Component({
@@ -23,16 +29,16 @@ import { Subject } from '../../../core/models';
     MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    CdkTextareaAutosize
+    CdkTextareaAutosize,
   ],
   templateUrl: './post-new.component.html',
-  styleUrls: ['./post-new.component.scss']
+  styleUrls: ['./post-new.component.scss'],
 })
 export class PostNewComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private postService = inject(PostService);
-  private subjectService = inject(SubjectService);
+  private subscriptionService = inject(SubscriptionService);
 
   subjects: Subject[] = [];
   form: FormGroup;
@@ -43,14 +49,14 @@ export class PostNewComponent implements OnInit {
     this.form = this.fb.group({
       subjectId: [null, Validators.required],
       title: ['', Validators.required],
-      content: ['', Validators.required]
+      content: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.subjectService.getAllSubjects().subscribe({
-      next: subjects => (this.subjects = subjects),
-      error: () => (this.errorMessage = 'Impossible de charger les thèmes.')
+    this.subscriptionService.getSubscriptions().subscribe({
+      next: (subjects) => (this.subjects = subjects),
+      error: () => (this.errorMessage = 'Impossible de charger les thèmes.'),
     });
   }
 
@@ -63,11 +69,12 @@ export class PostNewComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
     this.postService.createPost(this.form.value).subscribe({
-      next: res => this.router.navigate(['/posts', res.id]),
-      error: () => {
+      next: (res) => this.router.navigate(['/posts', res.id]),
+      error: (err) => {
         this.isLoading = false;
-        this.errorMessage = "Erreur lors de la création de l'article.";
-      }
+        this.errorMessage =
+          err.error?.message || "Erreur lors de la création de l'article.";
+      },
     });
   }
 }

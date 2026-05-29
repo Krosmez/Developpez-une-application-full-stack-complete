@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+
 import { CreateCommentRequest, CreatePostRequest, PostDetail } from '../models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
@@ -13,10 +14,19 @@ export class PostService {
   }
 
   createPost(request: CreatePostRequest): Observable<{ id: number }> {
-    return this.http.post<{ id: number }>(`${environment.apiUrl}/posts`, request);
+    return this.http.post<{ id: number }>(
+      `${environment.apiUrl}/posts`,
+      request,
+    );
   }
 
-  addComment(postId: number, request: CreateCommentRequest): Observable<Comment> {
-    return this.http.post<Comment>(`${environment.apiUrl}/posts/${postId}/comments`, request);
+  addComment(
+    postId: number,
+    request: CreateCommentRequest,
+  ): Observable<Comment> {
+    return this.http.post<Comment>(
+      `${environment.apiUrl}/posts/${postId}/comments`,
+      request,
+    );
   }
 }

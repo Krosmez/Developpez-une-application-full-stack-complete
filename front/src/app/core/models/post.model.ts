@@ -20,6 +20,7 @@ export interface PostDetail {
 export interface PostSummary {
   id: number;
   title: string;
+  content: string;
   author: Author;
   createdAt: string;
 }

@@ -29,6 +29,11 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", id));
         return userMapper.toProfileDto(user);
     }
+    public UserProfileResponse getUserByUsername(String username) {
+        User user = userRepository.findByEmailOrUsername(username)
+                .orElseThrow(null);
+        return userMapper.toProfileDto(user);
+    }
 
     @Transactional
     public UserProfileResponse updateUser(Long id, UpdateUserRequest request, User currentUser) {

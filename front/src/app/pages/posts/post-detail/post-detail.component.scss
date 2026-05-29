@@ -5,15 +5,28 @@
 
 .detail-page {
   flex: 1;
-  padding: 1rem 1rem 3rem;
+  padding: 1.25rem 1.5rem 3rem;
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
-  position: relative;
 }
 
-.back-btn {
-  margin-bottom: 1rem;
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+
+  .back-btn {
+    flex-shrink: 0;
+  }
+
+  .post-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
 }
 
 .spinner-wrapper {
@@ -36,25 +49,7 @@
 
 .post-meta {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.meta-date {
-  font-size: 0.85rem;
-  color: rgba(0, 0, 0, 0.54);
-}
-
-.post-title {
-  margin: 0;
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-.post-author {
+  gap: 1.5rem;
   margin: 0;
   font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.6);
@@ -73,31 +68,36 @@
 
   h2 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
   }
 }
 
 .comments-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
-.comment-card {
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 6px;
-  background: #fafafa;
+.comment-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
 
   .comment-author {
-    margin: 0 0 0.25rem;
-    font-size: 0.85rem;
-    font-weight: 600;
+    min-width: 90px;
+    font-size: 0.9rem;
+    font-weight: 500;
     color: rgba(0, 0, 0, 0.7);
+    padding-top: 0.6rem;
   }
 
-  .comment-content {
-    margin: 0;
+  .comment-bubble {
+    flex: 1;
+    background: #f0f0f0;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
     line-height: 1.5;
   }
 }
@@ -108,21 +108,31 @@
 }
 
 .comment-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   margin-top: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
 
-  .full-width {
-    width: 100%;
-  }
+.comment-error {
+  color: #b00020;
+  font-size: 0.875rem;
+  margin: 0 0 0.5rem;
+}
 
-  .submit-btn {
-    align-self: flex-end;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 100px;
-  }
+.comment-textarea {
+  flex: 1;
+  min-height: 60px;
+  padding: 0.75rem 0.5rem 0.5rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: transparent;
+}
+.send-btn {
+  color: #6750a4;
 }
