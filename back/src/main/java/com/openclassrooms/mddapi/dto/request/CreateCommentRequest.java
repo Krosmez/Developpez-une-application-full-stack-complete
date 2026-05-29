@@ -8,7 +8,7 @@ import lombok.Data;
 @Schema(description = "Données pour ajouter un commentaire")
 public class CreateCommentRequest {
 
-    @NotBlank
-    @Schema(description = "Contenu du commentaire", example = "Super article !")
-    private String content;
+  @NotBlank
+  @Schema(description = "Contenu du commentaire", example = "Super article !")
+  private String content;
 }

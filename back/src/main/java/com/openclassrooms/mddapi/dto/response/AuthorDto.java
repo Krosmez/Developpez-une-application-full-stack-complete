@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Auteur résumé")
 public class AuthorDto {
 
-    @Schema(example = "1")
-    private Long id;
+  @Schema(example = "1")
+  private Long id;
 
-    @Schema(example = "jean_dupont")
-    private String username;
+  @Schema(example = "jean_dupont")
+  private String username;
 }

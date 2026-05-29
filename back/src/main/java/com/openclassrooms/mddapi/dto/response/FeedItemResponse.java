@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Élément du fil d'actualité")
 public class FeedItemResponse {
 
-    private PostSummary post;
+  private PostSummary post;
 
-    private SubjectResponse subject;
+  private SubjectResponse subject;
 }

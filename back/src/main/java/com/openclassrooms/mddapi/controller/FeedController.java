@@ -23,15 +23,15 @@ import java.util.List;
 @Tag(name = "Fil d'actualité", description = "Articles des sujets auxquels l'utilisateur est abonné")
 public class FeedController {
 
-    private final PostService postService;
+  private final PostService postService;
 
-    @Operation(summary = "Récupérer le fil d'actualité de l'utilisateur connecté")
-    @GetMapping
-    public ResponseEntity<List<FeedItemResponse>> getFeed(
-            @AuthenticationPrincipal User currentUser,
-            @Parameter(description = "Ordre de tri par date (asc ou desc)", example = "desc")
-            @RequestParam(defaultValue = "desc") String sort) {
-        Sort.Direction direction = "asc".equalsIgnoreCase(sort) ? Sort.Direction.ASC : Sort.Direction.DESC;
-        return ResponseEntity.ok(postService.getFeed(currentUser.getId(), direction));
-    }
+  @Operation(summary = "Récupérer le fil d'actualité de l'utilisateur connecté")
+  @GetMapping
+  public ResponseEntity<List<FeedItemResponse>> getFeed(
+      @AuthenticationPrincipal User currentUser,
+      @Parameter(description = "Ordre de tri par date (asc ou desc)", example = "desc") @RequestParam(defaultValue = "desc") String sort
+  ) {
+    Sort.Direction direction = "asc".equalsIgnoreCase(sort) ? Sort.Direction.ASC : Sort.Direction.DESC;
+    return ResponseEntity.ok(postService.getFeed(currentUser.getId(), direction));
+  }
 }

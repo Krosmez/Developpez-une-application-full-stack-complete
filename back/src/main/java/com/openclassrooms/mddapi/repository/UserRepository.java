@@ -9,19 +9,19 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByEmail(String email);
+  Optional<User> findByEmail(String email);
 
-    boolean existsByEmail(String email);
+  boolean existsByEmail(String email);
 
-    boolean existsByEmailAndIdNot(String email, Long id);
+  boolean existsByEmailAndIdNot(String email, Long id);
 
-    boolean existsByUsername(String username);
+  boolean existsByUsername(String username);
 
-    boolean existsByUsernameAndIdNot(String username, Long id);
+  boolean existsByUsernameAndIdNot(String username, Long id);
 
-    @Query("SELECT u FROM User u WHERE u.email = :identifier OR u.username = :identifier")
-    Optional<User> findByEmailOrUsername(@Param("identifier") String identifier);
+  @Query("SELECT u FROM User u WHERE u.email = :identifier OR u.username = :identifier")
+  Optional<User> findByEmailOrUsername(@Param("identifier") String identifier);
 
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.subscriptions WHERE u.id = :id")
-    Optional<User> findByIdWithSubscriptions(@Param("id") Long id);
+  @Query("SELECT u FROM User u LEFT JOIN FETCH u.subscriptions WHERE u.id = :id")
+  Optional<User> findByIdWithSubscriptions(@Param("id") Long id);
 }

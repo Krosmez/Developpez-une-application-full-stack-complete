@@ -18,11 +18,11 @@ import java.util.List;
 @Tag(name = "Sujets", description = "Gestion des thématiques disponibles")
 public class SubjectController {
 
-    private final SubjectService subjectService;
+  private final SubjectService subjectService;
 
-    @Operation(summary = "Lister tous les sujets disponibles")
-    @GetMapping
-    public ResponseEntity<List<SubjectResponse>> getAllSubjects() {
-        return ResponseEntity.ok(subjectService.getAllSubjects());
-    }
+  @Operation(summary = "Lister tous les sujets disponibles")
+  @GetMapping
+  public ResponseEntity<List<SubjectResponse>> getAllSubjects() {
+    return ResponseEntity.ok(subjectService.getAllSubjects());
+  }
 }

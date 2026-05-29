@@ -1,7 +1,8 @@
 package com.openclassrooms.mddapi.exception;
 
 public class UsernameAlreadyExistsException extends RuntimeException {
-    public UsernameAlreadyExistsException(String username) {
-        super("Username already taken: " + username);
-    }
+
+  public UsernameAlreadyExistsException(String username) {
+    super("Username already taken: " + username);
+  }
 }

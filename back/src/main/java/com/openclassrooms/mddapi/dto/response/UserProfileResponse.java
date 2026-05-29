@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Profil complet d'un utilisateur")
 public class UserProfileResponse {
 
-    @Schema(example = "1")
-    private Long id;
+  @Schema(example = "1")
+  private Long id;
 
-    @Schema(example = "jean.dupont@example.com")
-    private String email;
+  @Schema(example = "jean.dupont@example.com")
+  private String email;
 
-    @Schema(example = "jean_dupont")
-    private String username;
+  @Schema(example = "jean_dupont")
+  private String username;
 
-    @Schema(example = "Développeur Java")
-    private String bio;
+  @Schema(example = "Développeur Java")
+  private String bio;
 }

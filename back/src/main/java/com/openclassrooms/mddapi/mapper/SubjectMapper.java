@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface SubjectMapper {
 
-    SubjectResponse toDto(Subject subject);
+  SubjectResponse toDto(Subject subject);
 
-    List<SubjectResponse> toDtoList(List<Subject> subjects);
+  List<SubjectResponse> toDtoList(List<Subject> subjects);
 }

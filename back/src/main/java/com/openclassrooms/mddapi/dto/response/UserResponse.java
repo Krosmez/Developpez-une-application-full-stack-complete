@@ -9,9 +9,9 @@ import lombok.Data;
 @Schema(description = "Informations de base de l'utilisateur créé")
 public class UserResponse {
 
-    @Schema(description = "Identifiant unique", example = "1")
-    private Long id;
+  @Schema(description = "Identifiant unique", example = "1")
+  private Long id;
 
-    @Schema(description = "Adresse email", example = "jean.dupont@example.com")
-    private String email;
+  @Schema(description = "Adresse email", example = "jean.dupont@example.com")
+  private String email;
 }

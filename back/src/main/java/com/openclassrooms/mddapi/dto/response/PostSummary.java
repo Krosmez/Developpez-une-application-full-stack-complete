@@ -13,16 +13,16 @@ import java.time.LocalDateTime;
 @Schema(description = "Article résumé pour le fil d'actualité")
 public class PostSummary {
 
-    @Schema(example = "1")
-    private Long id;
+  @Schema(example = "1")
+  private Long id;
 
-    @Schema(example = "Introduction à Spring Boot")
-    private String title;
+  @Schema(example = "Introduction à Spring Boot")
+  private String title;
 
-    @Schema(example = "Lorem ipsum...")
-    private String content;
+  @Schema(example = "Lorem ipsum...")
+  private String content;
 
-    private AuthorDto author;
+  private AuthorDto author;
 
-    private LocalDateTime createdAt;
+  private LocalDateTime createdAt;
 }

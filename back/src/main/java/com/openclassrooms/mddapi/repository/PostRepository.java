@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findByAuthorId(Long authorId);
+  List<Post> findByAuthorId(Long authorId);
 
-    List<Post> findBySubjectIn(List<Subject> subjects, Sort sort);
+  List<Post> findBySubjectIn(List<Subject> subjects, Sort sort);
 }

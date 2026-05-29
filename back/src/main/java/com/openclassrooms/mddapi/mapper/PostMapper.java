@@ -19,30 +19,30 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
-    PostResponse toDto(Post post);
+  PostResponse toDto(Post post);
 
-    List<PostResponse> toDtoList(List<Post> posts);
+  List<PostResponse> toDtoList(List<Post> posts);
 
-    @Mapping(target = "author", source = "author")
-    @Mapping(target = "subject", source = "subject")
-    @Mapping(target = "createdAt", source = "createdAt")
-    @Mapping(target = "comments", source = "comments")
-    PostDetailResponse toDetailDto(Post post);
+  @Mapping(target = "author", source = "author")
+  @Mapping(target = "subject", source = "subject")
+  @Mapping(target = "createdAt", source = "createdAt")
+  @Mapping(target = "comments", source = "comments")
+  PostDetailResponse toDetailDto(Post post);
 
-    @Mapping(target = "author", source = "author")
-    CommentResponse toCommentDto(Comment comment);
+  @Mapping(target = "author", source = "author")
+  CommentResponse toCommentDto(Comment comment);
 
-    @Mapping(target = "post.id", source = "id")
-    @Mapping(target = "post.title", source = "title")
-    @Mapping(target = "post.content", source = "content")
-    @Mapping(target = "post.author", source = "author")
-    @Mapping(target = "post.createdAt", source = "createdAt")
-    @Mapping(target = "subject", source = "subject")
-    FeedItemResponse toFeedItem(Post post);
+  @Mapping(target = "post.id", source = "id")
+  @Mapping(target = "post.title", source = "title")
+  @Mapping(target = "post.content", source = "content")
+  @Mapping(target = "post.author", source = "author")
+  @Mapping(target = "post.createdAt", source = "createdAt")
+  @Mapping(target = "subject", source = "subject")
+  FeedItemResponse toFeedItem(Post post);
 
-    AuthorDto toAuthorDto(User user);
+  AuthorDto toAuthorDto(User user);
 
-    SubjectResponse toSubjectDto(Subject subject);
+  SubjectResponse toSubjectDto(Subject subject);
 
-    PostSummary toPostSummary(Post post);
+  PostSummary toPostSummary(Post post);
 }

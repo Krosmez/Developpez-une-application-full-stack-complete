@@ -13,7 +13,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -23,35 +27,25 @@ import java.util.List;
 @Tag(name = "Abonnements", description = "Gestion des abonnements aux thèmes")
 public class SubscriptionController {
 
-    private final SubscriptionService subscriptionService;
+  private final SubscriptionService subscriptionService;
 
-    @Operation(summary = "S'abonner à un sujet")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Abonnement effectué, retourne la liste mise à jour"),
-        @ApiResponse(responseCode = "404", description = "Sujet introuvable",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(responseCode = "409", description = "Déjà abonné à ce sujet",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @PostMapping("/{subjectId}")
-    public ResponseEntity<List<SubjectResponse>> subscribe(
-            @PathVariable Long subjectId,
-            @AuthenticationPrincipal User currentUser) {
-        return ResponseEntity.ok(subscriptionService.subscribe(currentUser.getId(), subjectId));
-    }
+  @Operation(summary = "S'abonner à un sujet")
+  @ApiResponses({@ApiResponse(responseCode = "200", description = "Abonnement effectué, retourne la liste mise à jour"), @ApiResponse(responseCode
+      = "404", description = "Sujet introuvable", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+      @ApiResponse(responseCode = "409", description = "Déjà abonné à ce sujet", content = @Content(schema = @Schema(implementation =
+          ErrorResponse.class)))})
+  @PostMapping("/{subjectId}")
+  public ResponseEntity<List<SubjectResponse>> subscribe(@PathVariable Long subjectId, @AuthenticationPrincipal User currentUser) {
+    return ResponseEntity.ok(subscriptionService.subscribe(currentUser.getId(), subjectId));
+  }
 
-    @Operation(summary = "Se désabonner d'un sujet")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Désabonnement effectué, retourne la liste mise à jour"),
-        @ApiResponse(responseCode = "400", description = "Non abonné à ce sujet",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(responseCode = "404", description = "Sujet introuvable",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @DeleteMapping("/{subjectId}")
-    public ResponseEntity<List<SubjectResponse>> unsubscribe(
-            @PathVariable Long subjectId,
-            @AuthenticationPrincipal User currentUser) {
-        return ResponseEntity.ok(subscriptionService.unsubscribe(currentUser.getId(), subjectId));
-    }
+  @Operation(summary = "Se désabonner d'un sujet")
+  @ApiResponses({@ApiResponse(responseCode = "200", description = "Désabonnement effectué, retourne la liste mise à jour"),
+      @ApiResponse(responseCode = "400", description = "Non abonné à ce sujet", content = @Content(schema = @Schema(implementation =
+          ErrorResponse.class))), @ApiResponse(responseCode = "404", description = "Sujet introuvable", content = @Content(schema =
+  @Schema(implementation = ErrorResponse.class)))})
+  @DeleteMapping("/{subjectId}")
+  public ResponseEntity<List<SubjectResponse>> unsubscribe(@PathVariable Long subjectId, @AuthenticationPrincipal User currentUser) {
+    return ResponseEntity.ok(subscriptionService.unsubscribe(currentUser.getId(), subjectId));
+  }
 }

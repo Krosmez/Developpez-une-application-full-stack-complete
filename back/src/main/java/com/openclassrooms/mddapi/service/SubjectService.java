@@ -16,13 +16,10 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class SubjectService {
 
-    private final SubjectRepository subjectRepository;
-    private final SubjectMapper subjectMapper;
+  private final SubjectRepository subjectRepository;
+  private final SubjectMapper subjectMapper;
 
-    public List<SubjectResponse> getAllSubjects() {
-        return subjectRepository.findAll(Sort.by("name").ascending())
-                .stream()
-                .map(subjectMapper::toDto)
-                .collect(Collectors.toList());
-    }
+  public List<SubjectResponse> getAllSubjects() {
+    return subjectRepository.findAll(Sort.by("name").ascending()).stream().map(subjectMapper::toDto).collect(Collectors.toList());
+  }
 }

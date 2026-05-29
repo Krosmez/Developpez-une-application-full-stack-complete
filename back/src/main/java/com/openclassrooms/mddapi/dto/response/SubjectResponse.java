@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Sujet / thématique")
 public class SubjectResponse {
 
-    @Schema(example = "1")
-    private Long id;
+  @Schema(example = "1")
+  private Long id;
 
-    @Schema(example = "Java")
-    private String name;
+  @Schema(example = "Java")
+  private String name;
 
-    @Schema(example = "Tout ce qui concerne l'écosystème Java")
-    private String description;
+  @Schema(example = "Tout ce qui concerne l'écosystème Java")
+  private String description;
 }

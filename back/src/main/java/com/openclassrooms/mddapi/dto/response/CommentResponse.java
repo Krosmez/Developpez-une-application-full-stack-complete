@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Commentaire")
 public class CommentResponse {
 
-    @Schema(example = "1")
-    private Long id;
+  @Schema(example = "1")
+  private Long id;
 
-    @Schema(example = "Super article !")
-    private String content;
+  @Schema(example = "Super article !")
+  private String content;
 
-    private AuthorDto author;
+  private AuthorDto author;
 }
