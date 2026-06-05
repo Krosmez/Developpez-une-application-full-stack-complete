@@ -1,0 +1,117 @@
+<div class="profile-page">
+  @if (isLoading) {
+    <div class="spinner-wrapper">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else if (errorMessage && !profile) {
+    <p class="error-message">{{ errorMessage }}</p>
+  } @else if (profile) {
+    <section class="profile-section">
+      <h1>Profil utilisateur</h1>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="profile-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nom d'utilisateur</mat-label>
+          <input matInput formControlName="username" autocomplete="username" />
+          @if (
+            form.get("username")?.hasError("required") &&
+            form.get("username")?.touched
+          ) {
+            <mat-error>Ce champ est requis</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Adresse e-mail</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+          />
+          @if (
+            form.get("email")?.hasError("required") &&
+            form.get("email")?.touched
+          ) {
+            <mat-error>Ce champ est requis</mat-error>
+          }
+          @if (
+            form.get("email")?.hasError("email") && form.get("email")?.touched
+          ) {
+            <mat-error>Adresse email invalide</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mot de passe</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            autocomplete="new-password"
+          />
+          @if (
+            form.get("password")?.hasError("pattern") &&
+            form.get("password")?.touched
+          ) {
+            <mat-error
+              >8 car. min., 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère
+              spécial</mat-error
+            >
+          }
+        </mat-form-field>
+
+        @if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        }
+        @if (successMessage) {
+          <p class="success-message">{{ successMessage }}</p>
+        }
+
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid || isSaving"
+          class="submit-btn"
+        >
+          @if (isSaving) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            Sauvegarder
+          }
+        </button>
+      </form>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section class="subscriptions-section">
+      <h2>Abonnements</h2>
+
+      @if (subscriptions.length === 0) {
+        <p class="no-subscriptions">Vous n'êtes abonné à aucun thème.</p>
+      } @else {
+        <div class="subscriptions-grid">
+          @for (subject of subscriptions; track subject.id) {
+            <mat-card class="subscription-card">
+              <mat-card-content>
+                <h3 class="sub-name">{{ subject.name }}</h3>
+                <p class="sub-desc">{{ subject.description }}</p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  [disabled]="unsubscribingIds.has(subject.id)"
+                  (click)="unsubscribe(subject)"
+                >
+                  Se désabonner
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
+    </section>
+  }
+</div>

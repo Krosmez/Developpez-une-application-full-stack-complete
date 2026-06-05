@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Angular", "description": "Le framework front-end de Google." },
+  { "id": 2, "name": "Java", "description": "Langage orienté objet côté serveur." },
+  { "id": 3, "name": "DevOps", "description": "Culture et outils d'intégration continue." }
+]

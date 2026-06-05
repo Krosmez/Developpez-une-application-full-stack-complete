@@ -1,0 +1,36 @@
+<div class="feed-page">
+  <div class="feed-header">
+    <a mat-flat-button color="primary" routerLink="/posts/new">
+      Créer un article
+    </a>
+    <button class="sort-btn" (click)="toggleSort()" [title]="sort === 'desc' ? 'Trier du plus ancien au plus récent' : 'Trier du plus récent au plus ancien'">
+      Trier par <mat-icon inline>{{ sort === 'desc' ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="spinner-wrapper">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else if (errorMessage) {
+    <p class="error-message">{{ errorMessage }}</p>
+  } @else if (items.length === 0) {
+    <div class="empty-state">
+      <p>Votre fil est vide.</p>
+      <p>Abonnez-vous à des <a routerLink="/topics">thèmes</a> pour voir des articles ici.</p>
+    </div>
+  } @else {
+    <div class="feed-grid">
+      @for (item of items; track item.post.id) {
+        <a class="feed-card" [routerLink]="['/posts', item.post.id]">
+          <h2 class="card-title">{{ item.post.title }}</h2>
+          <p class="card-meta">
+            <span>{{ item.post.createdAt | date:'dd/MM/yyyy' }}</span>
+            <span>{{ item.post.author.username }}</span>
+          </p>
+          <p class="card-content">{{ item.post.content }}</p>
+        </a>
+      }
+    </div>
+  }
+</div>

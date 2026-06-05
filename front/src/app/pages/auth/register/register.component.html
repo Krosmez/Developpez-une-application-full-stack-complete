@@ -1,0 +1,49 @@
+<div class="auth-page">
+  <button mat-icon-button class="back-btn" routerLink="/" aria-label="Retour">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <div class="auth-container">
+    <img src="/assets/logo_p6.png" alt="MDD" class="mobile-logo" />
+    <h2>Inscription</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input matInput formControlName="username" autocomplete="username" />
+        @if (form.get("username")?.hasError("required") && form.get("username")?.touched) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Adresse e-mail</mat-label>
+        <input matInput type="email" formControlName="email" autocomplete="email" />
+        @if (form.get("email")?.hasError("required") && form.get("email")?.touched) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+        @if (form.get("email")?.hasError("email") && form.get("email")?.touched) {
+          <mat-error>Adresse email invalide</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput type="password" formControlName="password" autocomplete="new-password" />
+        @if (form.get("password")?.hasError("required") && form.get("password")?.touched) {
+          <mat-error>Ce champ est requis</mat-error>
+        }
+        @if (form.get("password")?.hasError("pattern") && form.get("password")?.touched) {
+          <mat-error>8 car. min., 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial</mat-error>
+        }
+      </mat-form-field>
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || isLoading" class="submit-btn">
+        @if (isLoading) {
+          <mat-spinner diameter="20"></mat-spinner>
+        } @else {
+          S'inscrire
+        }
+      </button>
+    </form>
+  </div>
+</div>

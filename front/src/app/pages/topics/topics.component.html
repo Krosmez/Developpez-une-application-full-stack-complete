@@ -1,0 +1,32 @@
+<div class="topics-page">
+  @if (isLoading) {
+    <div class="spinner-wrapper">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else if (errorMessage) {
+    <p class="error-message">{{ errorMessage }}</p>
+  } @else {
+    <div class="topics-grid">
+      @for (subject of subjects; track subject.id) {
+        <mat-card class="topic-card">
+          <mat-card-content>
+            <h2 class="topic-name">{{ subject.name }}</h2>
+            <p class="topic-desc">{{ subject.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-flat-button
+              color="primary"
+              [disabled]="
+                subscribedIds.has(subject.id) || pendingIds.has(subject.id)
+              "
+              (click)="subscribe(subject)"
+            >
+              {{ subscribedIds.has(subject.id) ? "Déjà abonné" : "S'abonner" }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

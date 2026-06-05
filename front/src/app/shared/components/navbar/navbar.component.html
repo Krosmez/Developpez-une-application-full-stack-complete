@@ -1,0 +1,37 @@
+<mat-toolbar class="navbar">
+  <a routerLink="/" class="logo-link">
+    <img src="/assets/logo_p6.png" alt="MDD" class="logo" />
+  </a>
+
+  <span class="spacer"></span>
+
+  @if (isLoggedIn$ | async) {
+    <nav class="desktop-nav">
+      <button mat-button class="logout-btn" (click)="logout()">Se déconnecter</button>
+      <a mat-button routerLink="/feed" routerLinkActive="active-link">Articles</a>
+      <a mat-button routerLink="/topics" routerLinkActive="active-link">Thèmes</a>
+      <a mat-icon-button routerLink="/profile" class="profile-btn" aria-label="Mon profil">
+        <mat-icon>person</mat-icon>
+      </a>
+    </nav>
+
+    <button mat-icon-button class="mobile-menu-btn" (click)="toggleMenu()" aria-label="Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+</mat-toolbar>
+
+@if (isLoggedIn$ | async) {
+  <div class="menu-overlay" [class.visible]="menuOpen" (click)="closeMenu()"></div>
+
+  <aside class="mobile-side-menu" [class.open]="menuOpen">
+    <nav class="side-nav">
+      <button mat-button class="side-logout-btn" (click)="logout()">Se déconnecter</button>
+      <a mat-button routerLink="/feed" routerLinkActive="side-active" (click)="closeMenu()">Articles</a>
+      <a mat-button routerLink="/topics" routerLinkActive="side-active" (click)="closeMenu()">Thèmes</a>
+    </nav>
+    <a mat-icon-button routerLink="/profile" (click)="closeMenu()" class="side-profile-btn" aria-label="Mon profil">
+      <mat-icon>person</mat-icon>
+    </a>
+  </aside>
+}

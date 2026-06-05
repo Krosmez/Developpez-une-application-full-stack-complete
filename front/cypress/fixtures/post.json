@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "title": "Premier article Angular",
+  "content": "Contenu détaillé du premier article sur Angular.",
+  "author": { "id": 2, "username": "alice" },
+  "subject": { "id": 1, "name": "Angular", "description": "Framework front" },
+  "createdAt": "2024-01-10T10:00:00Z",
+  "comments": [
+    { "id": 1, "content": "Super article !", "author": { "id": 3, "username": "bob" } }
+  ]
+}

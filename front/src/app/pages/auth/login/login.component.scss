@@ -1,0 +1,67 @@
+:host {
+  flex: 1;
+  display: flex;
+}
+
+.auth-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.back-btn {
+  align-self: flex-start;
+}
+
+.auth-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+
+  .mobile-logo {
+    display: none;
+    width: 100px;
+    height: auto;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .error-message {
+    color: #b00020;
+    font-size: 0.875rem;
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .submit-btn {
+    align-self: center;
+    margin-top: 0.5rem;
+    height: 44px;
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

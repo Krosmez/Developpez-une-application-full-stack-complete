@@ -1,0 +1,41 @@
+services:
+
+  # ── PostgreSQL ── toujours démarré
+  postgres:
+    image: postgres:16-alpine
+    container_name: mdd_postgres
+    environment:
+      POSTGRES_DB: mdd_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Back Spring Boot ── uniquement avec --profile full
+  app:
+    profiles: ["full"]
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: mdd_app
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: mdd_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

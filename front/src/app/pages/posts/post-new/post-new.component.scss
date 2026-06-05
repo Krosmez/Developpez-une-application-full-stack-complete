@@ -1,0 +1,54 @@
+:host {
+  flex: 1;
+  display: flex;
+}
+
+.new-post-page {
+  flex: 1;
+  padding: 1.5rem 1.5rem 3rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding-right: 2.5rem;
+  }
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .full-width {
+    width: 100%;
+  }
+
+  .error-message {
+    color: #b00020;
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+  }
+
+  .submit-btn {
+    align-self: center;
+    height: 44px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+}
