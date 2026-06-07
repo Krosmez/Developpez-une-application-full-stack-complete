@@ -51,7 +51,6 @@ export class ProfileComponent implements OnInit {
   isLoading = true;
   isSaving = false;
   errorMessage = '';
-  successMessage = '';
   form: FormGroup;
   unsubscribingIds = new Set<number>();
 
@@ -90,7 +89,6 @@ export class ProfileComponent implements OnInit {
     if (this.form.invalid || !this.profile) return;
     this.isSaving = true;
     this.errorMessage = '';
-    this.successMessage = '';
 
     const payload: UpdateUserRequest = {
       email: this.form.get('email')!.value,
@@ -102,11 +100,12 @@ export class ProfileComponent implements OnInit {
     if (password) payload.password = password;
 
     this.userService.updateProfile(this.profile.id, payload).subscribe({
-      next: (updated) => {
-        this.profile = updated;
-        this.form.get('password')!.reset();
-        this.successMessage = 'Profil mis à jour avec succès.';
+      next: () => {
         this.isSaving = false;
+        this.authService.logout();
+        this.router.navigate(['/login'], {
+          queryParams: { reason: 'profile-updated' },
+        });
       },
       error: (err) => {
         this.errorMessage =

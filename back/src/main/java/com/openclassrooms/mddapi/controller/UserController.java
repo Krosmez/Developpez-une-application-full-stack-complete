@@ -66,8 +66,8 @@ public class UserController {
   @ApiResponses({@ApiResponse(responseCode = "200", description = "Profil mis à jour", content = @Content(schema = @Schema(implementation =
       UserProfileResponse.class))), @ApiResponse(responseCode = "403", description = "Modification d'un autre profil interdite", content =
   @Content(schema = @Schema(implementation = ErrorResponse.class))), @ApiResponse(responseCode = "404", description = "Utilisateur introuvable",
-      content = @Content(schema = @Schema(implementation = ErrorResponse.class))), @ApiResponse(responseCode = "409", description = "Email ou nom " +
-      "d'utilisateur déjà utilisé", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
+      content = @Content(schema = @Schema(implementation = ErrorResponse.class))), @ApiResponse(responseCode = "409", description =
+      "Email ou nom " + "d'utilisateur déjà utilisé", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
   @PutMapping("/{id}")
   public ResponseEntity<UserProfileResponse> updateUser(
       @PathVariable Long id,
