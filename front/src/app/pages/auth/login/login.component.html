@@ -6,6 +6,9 @@
   <div class="auth-container">
     <img src="/assets/logo_p6.png" alt="MDD" class="mobile-logo" />
     <h2>Se connecter</h2>
+    @if (noticeMessage) {
+      <p class="notice-message">{{ noticeMessage }}</p>
+    }
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>E-mail ou nom d'utilisateur</mat-label>

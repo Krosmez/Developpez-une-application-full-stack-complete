@@ -95,8 +95,10 @@ describe('ProfileComponent', () => {
       email: 'john@test.com',
       username: 'johnny',
     });
-    expect(component.profile).toBe(updated);
-    expect(component.successMessage).toBe('Profil mis à jour avec succès.');
+    expect(authService.logout).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/login'], {
+      queryParams: { reason: 'profile-updated' },
+    });
     expect(component.isSaving).toBe(false);
   });
 

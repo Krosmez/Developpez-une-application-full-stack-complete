@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
 import { LoginComponent } from './login.component';
@@ -10,16 +10,18 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let authService: { login: jest.Mock };
   let router: { navigate: jest.Mock };
+  let reason: string | null;
 
-  beforeEach(async () => {
-    authService = { login: jest.fn() };
-    router = { navigate: jest.fn() };
-
+  const createComponent = async () => {
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: Router, useValue: router },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { queryParamMap: { get: () => reason } } },
+        },
       ],
     })
       .overrideComponent(LoginComponent, { set: { template: '' } })
@@ -27,11 +29,33 @@ describe('LoginComponent', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+  };
+
+  beforeEach(async () => {
+    authService = { login: jest.fn() };
+    router = { navigate: jest.fn() };
+    reason = null;
+
+    await createComponent();
   });
 
   it('should create with an invalid empty form', () => {
     expect(component).toBeTruthy();
     expect(component.form.invalid).toBe(true);
+  });
+
+  it('should not show a notice without the profile-updated reason', () => {
+    expect(component.noticeMessage).toBe('');
+  });
+
+  it('should show a notice when redirected after a profile update', async () => {
+    reason = 'profile-updated';
+    TestBed.resetTestingModule();
+    await createComponent();
+
+    expect(component.noticeMessage).toBe(
+      'Votre profil a été mis à jour. Veuillez vous reconnecter.',
+    );
   });
 
   it('should not call the service when the form is invalid', () => {
